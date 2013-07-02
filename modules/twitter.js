@@ -14,7 +14,6 @@ TwitterMonitor.prototype.init = function() {
   var twit = new twitter( config.twitter );
 
   // Listen for tweets
-  // TODO make the user accounts configurable
   twit.stream('statuses/filter', { follow: '1561479648' }, function(stream) {  
     stream.on('data', function (data) {
       
@@ -44,6 +43,7 @@ TwitterMonitor.prototype.formatActivity = function(activityData) {
   
   // TODO format date...
   // toISOString
+  // TODO format the content section (as html for clientside)
 
   var activity = {
     "content": activityData.text,
