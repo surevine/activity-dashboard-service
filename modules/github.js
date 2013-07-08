@@ -1,4 +1,4 @@
-// Twitter activity monitor module
+// Github activity monitor module
 
 var database = require('../database').connection,
     activityUtils = require('../activities'),
