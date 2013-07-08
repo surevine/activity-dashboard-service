@@ -5,7 +5,8 @@ module.exports = {
   },
   
   polls: {
-    github: 60000 // poll frequency in millis
+    github: 60000,  // poll frequency in millis
+    blog: 60000     // poll frequency in millis
   },
   
   db: {
@@ -27,6 +28,15 @@ module.exports = {
   github: {
     username: '',
     password: ''
+  },
+  
+  blog: {
+    title: '',
+    url: '',
+    feed_url: '',
+    author_url: ''
   }
+  
+
   
 };
