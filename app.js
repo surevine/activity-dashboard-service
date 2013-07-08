@@ -5,7 +5,8 @@ config = require('./config.'+environment+'.js');
 // Require Modules
 var express = require('express'),
     TwitterMonitor = require('./modules/twitter'),
-    GithubMonitor = require('./modules/github');
+    GithubMonitor = require('./modules/github'),
+    BlogMonitor = require('./modules/blog');
 
 var app = express();
     
@@ -15,6 +16,9 @@ twitterMonitor.init();
 
 var githubMonitor = new GithubMonitor();
 githubMonitor.init();
+
+var blogMonitor = new BlogMonitor();
+blogMonitor.init();
 
 // Start Application
 io = require('socket.io').listen(app.listen(config.app.port));

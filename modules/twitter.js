@@ -1,7 +1,7 @@
 // Twitter activity monitor module
 
 var database = require('../database').connection,
-    activities = require('../activities'),
+    activityUtils = require('../activities'),
     ntwitter = require('ntwitter');
 
 module.exports = TwitterMonitor = function TwitterMonitor(){};
@@ -19,8 +19,8 @@ TwitterMonitor.prototype.init = function() {
       // Handle incoming tweet
       console.log('Received tweet from stream');
       var activity = self.formatActivity(data);
-      activities.broadcastActivity(activity);
-      activities.cacheActivity(activity, 'twitter');
+      activityUtils.broadcast(activity);
+      activityUtils.cache(activity, 'twitter');
     });
     stream.on('end', function (response) {
       // Handle a disconnection      
