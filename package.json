@@ -7,7 +7,8 @@
     "express": "3.2.4",
     "mysql": "2.0.0-alpha8",
     "socket.io": "0.9.16",
-    "ntwitter": "0.5.0"
+    "ntwitter": "0.5.0",
+    "github": "0.1.10"
   },
   "scripts": {
     "start": "app.js"
