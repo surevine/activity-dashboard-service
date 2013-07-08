@@ -2,7 +2,7 @@
 
 var database = require('../database').connection,
     activities = require('../activities'),
-    twitter = require('ntwitter');
+    ntwitter = require('ntwitter');
 
 module.exports = TwitterMonitor = function TwitterMonitor(){};
 
@@ -11,19 +11,16 @@ TwitterMonitor.prototype.init = function() {
   
   var self = this;
   
-  var twit = new twitter( config.twitter );
+  var twitter = new ntwitter( config.twitter );
 
   // Listen for tweets
-  twit.stream('statuses/filter', { follow: '1561479648' }, function(stream) {  
+  twitter.stream('statuses/filter', { follow: '1561479648' }, function(stream) {  
     stream.on('data', function (data) {
-      
-      // TODO only if debug enabled
+      // Handle incoming tweet
       console.log('Received tweet from stream');
-      
       var activity = self.formatActivity(data);
       activities.broadcastActivity(activity);
       activities.cacheActivity(activity, 'twitter');
-      
     });
     stream.on('end', function (response) {
       // Handle a disconnection      
@@ -46,6 +43,7 @@ TwitterMonitor.prototype.formatActivity = function(activityData) {
   // TODO format the content section (as html for clientside)
 
   var activity = {
+    "id": "twitter-"+activityData.id_str,
     "content": activityData.text,
     "size": "span3",
     "published": "2013-01-31T11:04:55Z",

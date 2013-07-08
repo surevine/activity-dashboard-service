@@ -4,13 +4,17 @@ config = require('./config.'+environment+'.js');
 
 // Require Modules
 var express = require('express'),
-    TwitterMonitor = require('./modules/twitter');
+    TwitterMonitor = require('./modules/twitter'),
+    GithubMonitor = require('./modules/github');
 
 var app = express();
     
 // Monitors
 var twitterMonitor = new TwitterMonitor();
 twitterMonitor.init();
+
+var githubMonitor = new GithubMonitor();
+githubMonitor.init();
 
 // Start Application
 io = require('socket.io').listen(app.listen(config.app.port));
