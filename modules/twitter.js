@@ -38,15 +38,11 @@ TwitterMonitor.prototype.init = function() {
 // Build activity object into expected format
 TwitterMonitor.prototype.formatActivity = function(activityData) {
   
-  // TODO format date...
-  // toISOString
-  // TODO format the content section (as html for clientside)
-
   var activity = {
     "id": "twitter-"+activityData.id_str,
     "content": activityData.text,
     "size": "span3",
-    "published": "2013-01-31T11:04:55Z",
+    "published": activityData.created_at,
     "generator": { 
         "id": "twitter",
         "displayName": "Twitter"

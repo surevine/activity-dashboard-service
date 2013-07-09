@@ -37,9 +37,6 @@ BlogMonitor.prototype.init = function() {
 // Build activity object into expected format
 BlogMonitor.prototype.formatActivity = function(activity) {
   
-  // TODO format date...
-  // TODO format the content section (as html for clientside)
-
   var activity = {
     "id": "blog-"+activity.guid,
     "content": this.formatActivityContentString(activity),
@@ -69,6 +66,7 @@ BlogMonitor.prototype.formatActivity = function(activity) {
 
 BlogMonitor.prototype.formatActivityContentString = function(activity) {
   var content = '<a href="'+activity['link']+'"><h2>'+activity['title']+'</h2></a>'+
-                '<p>'+activity['rss:description']['#']+'</p>';
+                '<p>'+activity['rss:description']['#']+'</p>'+
+                '<date>'+activityUtils.formatActivityDate(new Date(activity.pubDate))+'</date>';
   return content;
 }
