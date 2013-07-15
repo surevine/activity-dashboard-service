@@ -45,17 +45,6 @@ module.exports = Activities = {
       
     });
 
-  },
-  
-  // Formats an activities date into consistent, readable string
-  // Expects javascript date object
-  formatActivityDate: function(date) {
-    return this.zerofillDatePart(date.getDate())+'/'+this.zerofillDatePart(date.getMonth())+'/'+date.getFullYear()+', '+this.zerofillDatePart(date.getHours())+':'+this.zerofillDatePart(date.getMinutes());
-  },
-  
-  // zerofill's date part to 2 digits
-  zerofillDatePart: function(number) {
-    return ("0" + number).slice(-2);
   }
   
 };
