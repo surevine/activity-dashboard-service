@@ -15,7 +15,7 @@ module.exports = Activities = {
       activityId: activity.id,
       data: JSON.stringify(activity),
       type: type,
-      created: new Date().getTime() // TODO fix the formatting here, needs to be mysql compliant timestamp
+      created: this.toMySQLDateTime(new Date(activity.published))
     };
     
     var query = database.query("INSERT INTO "+config.db.table+" SET ?", databaseEntry, function(err, result) {
@@ -45,6 +45,16 @@ module.exports = Activities = {
       
     });
 
+  },
+  
+  // Return date formatted as Mysql datetime 
+  toMySQLDateTime: function(date) {
+      return date.getUTCFullYear() + "-" + this.zerofillDatePart(date.getUTCMonth()) + "-" + this.zerofillDatePart(date.getUTCDate()) + " " + this.zerofillDatePart(date.getUTCHours()) + ":" + this.zerofillDatePart(date.getUTCMinutes()) + ":" + this.zerofillDatePart(date.getUTCSeconds());
+  },
+  
+  // zerofill's date part to 2 digits
+  zerofillDatePart: function(number) {
+    return ("0" + number).slice(-2);
   }
   
 };
