@@ -57,7 +57,7 @@ GithubMonitor.prototype.formatActivity = function(activity) {
   var formattedActivity = {
     "id": "github-"+activity.id,
     "size": "span3",
-    "published": activity.created_at,
+    "published": new Date(activity.created_at).toISOString(),
     "generator": { 
         "id": "github",
         "displayName": "Github"
@@ -138,22 +138,22 @@ GithubMonitor.prototype.formatCreateActivity = function(activity) {
     case "repository":
       var content = '<img src="'+activity.actor.avatar_url+'" alt="'+activity.actor.login+'" class="avatar" />'+
                 '<p><a href="https://www.github.com/'+activity.actor.login+'">'+activity.actor.login+'</a> created '+activity.payload.ref_type+' <a href="https://www.github.com/'+activity.repo.name+'">'+activity.repo.name+'</a>.</p>'+
-                '<date>'+activityUtils.formatActivityDate(new Date(activity.created_at))+'</date>';
+                '<date class="timeago" title="'+new Date(activity.created_at).toISOString()+'">'+new Date(activity.created_at).toISOString()+'</date>';
     break; 
     case "branch":
       var content = '<img src="'+activity.actor.avatar_url+'" alt="'+activity.actor.login+'" class="avatar" />'+
                 '<p><a href="https://www.github.com/'+activity.actor.login+'">'+activity.actor.login+'</a> created '+activity.payload.ref_type+' <a href="https://www.github.com/'+activity.repo.name+'/tree/'+activity.payload.ref+'">'+activity.payload.ref+'</a> in <a href="https://www.github.com/'+activity.repo.name+'">'+activity.repo.name+'</a>.</p>'+
-                '<date>'+activityUtils.formatActivityDate(new Date(activity.created_at))+'</date>';
+                '<date class="timeago" title="'+new Date(activity.created_at).toISOString()+'">'+new Date(activity.created_at).toISOString()+'</date>';
     break; 
     case "tag":
         var content = '<img src="'+activity.actor.avatar_url+'" alt="'+activity.actor.login+'" class="avatar" />'+
             '<p><a href="https://www.github.com/'+activity.actor.login+'">'+activity.actor.login+'</a> created '+activity.payload.ref_type+' <a href="https://www.github.com/'+activity.repo.name+'/releases/'+activity.payload.ref+'">'+activity.payload.ref+'</a> in <a href="https://www.github.com/'+activity.repo.name+'">'+activity.repo.name+'</a>.</p>'+
-            '<date>'+activityUtils.formatActivityDate(new Date(activity.created_at))+'</date>';
+            '<date class="timeago" title="'+new Date(activity.created_at).toISOString()+'">'+new Date(activity.created_at).toISOString()+'</date>';
     break; 
     default:
       var content = '<img src="'+activity.actor.avatar_url+'" alt="'+activity.actor.login+'" class="avatar" />'+
             '<p><a href="https://www.github.com/'+activity.actor.login+'">'+activity.actor.login+'</a> created '+activity.payload.ref_type+' '+activity.payload.ref+' in <a href="https://www.github.com/'+activity.repo.name+'">'+activity.repo.name+'</a>.</p>'+
-            '<date>'+activityUtils.formatActivityDate(new Date(activity.created_at))+'</date>';
+            '<date class="timeago" title="'+new Date(activity.created_at).toISOString()+'">'+new Date(activity.created_at).toISOString()+'</date>';
     break;
   }
   return content;
@@ -162,14 +162,14 @@ GithubMonitor.prototype.formatCreateActivity = function(activity) {
 GithubMonitor.prototype.formatDeleteActivity = function(activity) {
   var content = '<img src="'+activity.actor.avatar_url+'" alt="'+activity.actor.login+'" class="avatar" />'+
               '<p><a href="https://www.github.com/'+activity.actor.login+'">'+activity.actor.login+'</a> deleted '+activity.payload.ref_type+' '+activity.payload.ref+' from <a href="https://www.github.com/'+activity.repo.name+'">'+activity.repo.name+'</a>.</p>'+
-              '<date>'+activityUtils.formatActivityDate(new Date(activity.created_at))+'</date>';
+              '<date class="timeago" title="'+new Date(activity.created_at).toISOString()+'">'+new Date(activity.created_at).toISOString()+'</date>';
   return content;
 };
 
 GithubMonitor.prototype.formatForkActivity = function(activity) {
   var content = '<img src="'+activity.actor.avatar_url+'" alt="'+activity.actor.login+'" class="avatar" />'+
               '<p><a href="https://www.github.com/'+activity.actor.login+'">'+activity.actor.login+'</a> forked <a href="https://www.github.com/'+activity.repo.name+'">'+activity.repo.name+'</a> to <a href="https://www.github.com/'+activity.payload.forkee.full_name+'">'+activity.payload.forkee.full_name+'</a>.</p>'+
-              '<date>'+activityUtils.formatActivityDate(new Date(activity.created_at))+'</date>';
+              '<date class="timeago" title="'+new Date(activity.created_at).toISOString()+'">'+new Date(activity.created_at).toISOString()+'</date>';
   return content;
 };
 
@@ -188,14 +188,14 @@ GithubMonitor.prototype.formatIssueCommentActivity = function(activity) {
 GithubMonitor.prototype.formatIssueActivity = function(activity) {
   var content = '<img src="'+activity.actor.avatar_url+'" alt="'+activity.actor.login+'" class="avatar" />'+
               '<p><a href="https://www.github.com/'+activity.actor.login+'">'+activity.actor.login+'</a> '+activity.payload.action+' issue <a href="'+activity.payload.issue.html_url+'">#7 - '+activity.payload.issue.title+'</a> in <a href="https://www.github.com/'+activity.repo.name+'">'+activity.repo.name+'</a>.</p>'+
-              '<date>'+activityUtils.formatActivityDate(new Date(activity.created_at))+'</date>';
+              '<date class="timeago" title="'+new Date(activity.created_at).toISOString()+'">'+new Date(activity.created_at).toISOString()+'</date>';
   return content; 
 };
 
 GithubMonitor.prototype.formatPullRequestActivity = function(activity) {
   var content = '<img src="'+activity.actor.avatar_url+'" alt="'+activity.actor.login+'" class="avatar" />'+
               '<p><a href="https://www.github.com/'+activity.actor.login+'">'+activity.actor.login+'</a> '+activity.payload.action+' pull request <a href="'+activity.payload.pull_request.html_url+'">'+activity.payload.pull_request.title+'</a> in <a href="https://www.github.com/'+activity.repo.name+'">'+activity.repo.name+'</a>.</p>'+
-              '<date>'+activityUtils.formatActivityDate(new Date(activity.created_at))+'</date>';
+              '<date class="timeago" title="'+new Date(activity.created_at).toISOString()+'">'+new Date(activity.created_at).toISOString()+'</date>';
   return content;
 };
 
@@ -207,6 +207,6 @@ GithubMonitor.prototype.formatPushActivity = function(activity) {
   // TODO format date
   var content = '<img src="'+activity.actor.avatar_url+'" alt="'+activity.actor.login+'" class="avatar" />'+
               '<p><a href="https://www.github.com/'+activity.actor.login+'">'+activity.actor.login+'</a> pushed <a href="https://www.github.com/'+activity.repo.name+'/commits?author='+activity.actor.login+'">'+activity.payload.size+' commits</a> to <a href="https://www.github.com/'+activity.repo.name+'">'+activity.repo.name+'</a>.</p>'+
-              '<date>'+activityUtils.formatActivityDate(new Date(activity.created_at))+'</date>';
+              '<date class="timeago" title="'+new Date(activity.created_at).toISOString()+'">'+new Date(activity.created_at).toISOString()+'</date>';
   return content;
 };
