@@ -69,6 +69,6 @@ BlogMonitor.prototype.formatActivityContentString = function(activity) {
                 '<a href="'+config.blog.author_url+activity.author+'">'+activity['author']+'</a>'+
                 '<p>'+activity['rss:description']['#']+'</p>'+
                 '<a href="'+activity['link']+'">Read More</a>'+
-                '<date>'+activityUtils.formatActivityDate(new Date(activity.pubDate))+'</date>';
+                '<date class="timeago" title="'+new Date(activity.pubDate).toISOString()+'">'+new Date(activity.pubDate).toISOString()+'</date>';
   return content;
 }
