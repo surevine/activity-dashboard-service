@@ -40,7 +40,7 @@ TwitterMonitor.prototype.formatActivity = function(activityData) {
   
   var activity = {
     "id": "twitter-"+activityData.id_str,
-    "content": activityData.text,
+    "content": this.formatActivityContent(activityData),
     "size": "span3",
     "published": new Date(activityData.created_at).toISOString(),
     "generator": { 
@@ -64,3 +64,15 @@ TwitterMonitor.prototype.formatActivity = function(activityData) {
   return activity;
   
 };
+
+TwitterMonitor.prototype.formatActivityContent = function(activityData) {
+  
+  // TODO markup hashtags, URLs and usernames
+  
+  var content = '<img src="'+activityData.user.profile_image_url+'" alt="'+activityData.user.screen_name+'" class="avatar" />'+
+            '<p>'+activityData.text+'</p>'+
+            '<date class="timeago" title="'+new Date(activityData.created_at).toISOString()+'">'+new Date(activityData.created_at).toISOString()+'</date>';
+            
+  return content;
+  
+}
