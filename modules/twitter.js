@@ -41,7 +41,7 @@ TwitterMonitor.prototype.formatActivity = function(activityData) {
   var activity = {
     "id": "twitter-"+activityData.id_str,
     "content": this.formatActivityContent(activityData),
-    "size": "span3",
+    "size": "span4",
     "published": new Date(activityData.created_at).toISOString(),
     "generator": { 
         "id": "twitter",
