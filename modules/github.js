@@ -9,14 +9,27 @@ module.exports = GithubMonitor = function GithubMonitor(){};
 // Setup activity monitor
 GithubMonitor.prototype.init = function() {
   
-  var self = this;
+  var self = this;   
+  
+  var eventsToIgnore = ['DownloadEvent',
+                      'FollowEvent',
+                      'GollumEvent',
+                      'MemberEvent',
+                      'TeamAddEvent',
+                      'PublicEvent',
+                      'GistEvent',
+                      'CommitCommentEvent',
+                      'ForkApplyEvent',
+                      'IssueCommentEvent', 
+                      'PullRequestReviewComment',
+                      'WatchEvent'];  
 
   var github = new GitHubApi({
       // required
       version: "3.0.0",
       // optional
       timeout: 5000
-  });
+  }); 
   
   setInterval(function(){
     
@@ -32,7 +45,16 @@ GithubMonitor.prototype.init = function() {
       for (var i = 0; i < events.length; i++) {
         var githubEvent = events[i];
         
-        // TODO throw away certain activity types (that we don't care about)
+        // Ignore certain events from API
+        var ignoreEvent = false;
+        for (var index = 0; index < eventsToIgnore.length; index++) {
+            if (eventsToIgnore[index] === githubEvent.type) {
+                ignoreEvent = true;
+            }
+        }
+        if(ignoreEvent) {
+          continue;
+        }
         
         // Produce uid for activity
         var activityId = "github-"+githubEvent.id;
@@ -78,10 +100,7 @@ GithubMonitor.prototype.formatActivity = function(activity) {
   };
   
   switch(activity.type) {
-    /*
-    case "CommitCommentEvent":
-      break;
-    */
+
     case "CreateEvent":
       formattedActivity.content = this.formatCreateActivity(activity);
       break;
@@ -91,24 +110,12 @@ GithubMonitor.prototype.formatActivity = function(activity) {
     case "ForkEvent":
       formattedActivity.content = this.formatForkActivity(activity);
       break;
-      /*
-    case "ForkApplyEvent":
-      break;
-    case "GistEvent":
-      break;
-    case "IssueCommentEvent":
-      break;
-      */
     case "IssuesEvent":
       formattedActivity.content = this.formatIssueActivity(activity);
       break;
     case "PullRequestEvent":
       formattedActivity.content = this.formatPullRequestActivity(activity);
       break;
-      /*
-    case "PullRequestReviewComment":
-      break; 
-      */
     case "PushEvent":
       formattedActivity.content = this.formatPushActivity(activity);
       break;          
@@ -187,7 +194,7 @@ GithubMonitor.prototype.formatIssueCommentActivity = function(activity) {
 
 GithubMonitor.prototype.formatIssueActivity = function(activity) {
   var content = '<img src="'+activity.actor.avatar_url+'" alt="'+activity.actor.login+'" class="avatar" />'+
-              '<p><a href="https://www.github.com/'+activity.actor.login+'">'+activity.actor.login+'</a> '+activity.payload.action+' issue <a href="'+activity.payload.issue.html_url+'">#7 - '+activity.payload.issue.title+'</a> in <a href="https://www.github.com/'+activity.repo.name+'">'+activity.repo.name+'</a>.</p>'+
+              '<p><a href="https://www.github.com/'+activity.actor.login+'">'+activity.actor.login+'</a> '+activity.payload.action+' issue <a href="'+activity.payload.issue.html_url+'">#'+activity.payload.issue.number+' - '+activity.payload.issue.title+'</a> in <a href="https://www.github.com/'+activity.repo.name+'">'+activity.repo.name+'</a>.</p>'+
               '<date class="timeago" title="'+new Date(activity.created_at).toISOString()+'">'+new Date(activity.created_at).toISOString()+'</date>';
   return content; 
 };
