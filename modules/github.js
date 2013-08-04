@@ -78,7 +78,7 @@ GithubMonitor.prototype.formatActivity = function(activity) {
   
   var formattedActivity = {
     "id": "github-"+activity.id,
-    "size": "span3",
+    "size": "span4",
     "published": new Date(activity.created_at).toISOString(),
     "generator": { 
         "id": "github",

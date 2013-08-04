@@ -14,7 +14,7 @@ TwitterMonitor.prototype.init = function() {
   var twitter = new ntwitter( config.twitter );
 
   // Listen for tweets
-  twitter.stream('statuses/filter', { follow: '1561479648' }, function(stream) {  
+  twitter.stream('statuses/filter', { follow: config.twitter.follow }, function(stream) {  
     stream.on('data', function (data) {
       // Handle incoming tweet
       console.log('Received tweet from stream');
@@ -41,7 +41,7 @@ TwitterMonitor.prototype.formatActivity = function(activityData) {
   var activity = {
     "id": "twitter-"+activityData.id_str,
     "content": this.formatActivityContent(activityData),
-    "size": "span3",
+    "size": "span4",
     "published": new Date(activityData.created_at).toISOString(),
     "generator": { 
         "id": "twitter",
