@@ -71,6 +71,11 @@ TwitterMonitor.prototype.formatActivityContent = function(activityData) {
   
   var content = '<img src="'+activityData.user.profile_image_url+'" alt="'+activityData.user.screen_name+'" class="avatar" />'+
             '<p>'+activityData.text+'</p>'+
+            '<div class="actions">'+
+            '<a href="https://twitter.com/intent/tweet?in_reply_to='+activityData.id_str+'" title="Reply" target="_blank"><i class="icon-share-alt icon"></i></a>'+
+            '<a href="https://twitter.com/intent/retweet?tweet_id='+activityData.id_str+'" title="Retweet" target="_blank"><i class="icon-retweet icon"></i></a>'+
+            '<a href="https://twitter.com/intent/favorite?tweet_id='+activityData.id_str+'" title="Favourite" target="_blank"><i class="icon-star icon"></i></a>'+
+            '</div>'+
             '<date class="timeago" title="'+new Date(activityData.created_at).toISOString()+'">'+new Date(activityData.created_at).toISOString()+'</date>';
             
   return content;
