@@ -14,6 +14,11 @@ BlogMonitor.prototype.init = function() {
   setInterval(function(){
     
     parser.parseUrl(config.blog.feed_url, function (err, meta, articles) {
+      if (err) throw err;
+      
+      if(articles==undefined) {
+        return;
+      }
       
       for (var i=0;i<articles.length;i++) {
         

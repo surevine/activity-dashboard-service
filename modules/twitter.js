@@ -69,7 +69,9 @@ TwitterMonitor.prototype.formatActivityContent = function(activityData) {
   
   // TODO markup hashtags, URLs and usernames
   
-  var content = '<img src="'+activityData.user.profile_image_url+'" alt="'+activityData.user.screen_name+'" class="avatar" />'+
+  var content = '<a href="http://www.twitter.com/'+activityData.user.screen_name+'" target="_blank">'+
+            '<img src="'+activityData.user.profile_image_url+'" alt="'+activityData.user.screen_name+'" class="avatar" />'+
+            '</a>'+
             '<p>'+activityData.text+'</p>'+
             '<div class="actions">'+
             '<a href="https://twitter.com/intent/tweet?in_reply_to='+activityData.id_str+'" title="Reply" target="_blank"><i class="icon-share-alt icon"></i></a>'+
