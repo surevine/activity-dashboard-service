@@ -35,7 +35,7 @@ module.exports = Activities = {
       throw new Error("callback parameter not a function");
     }
     
-    var query = database.query("SELECT * FROM "+config.db.table+" WHERE activityId='"+activityId+"'", function(err, result) {
+    var query = database.query("SELECT * FROM "+config.db.table+" WHERE activityId = ?", activityId, function(err, result) {
       if (err) throw err;
       
       if(result.length == 0) {
