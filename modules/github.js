@@ -40,7 +40,7 @@ GithubMonitor.prototype.init = function() {
         password: config.github.password
     });
     
-    github.events.getFromOrg({ org: "surevine" }, function(err, events) {
+    github.events.getFromOrg({ org: config.github.organisation }, function(err, events) {
       if (err) throw err;
       
       for (var i = 0; i < events.length; i++) {

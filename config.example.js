@@ -23,19 +23,20 @@ module.exports = {
     consumer_secret: '',
     access_token_key: '',
     access_token_secret: '',
-    follow: ''
+    follow: ''  // User account ID to follow.
   },
   
   github: {
-    username: '',
-    password: ''
+    username: '', // Account to authenticate Github API with
+    password: '',
+    organisation: '' // Orgnisation name to poll feed of
   },
   
   blog: {
-    title: '',
-    url: '',
-    feed_url: '',
-    author_url: ''
+    title: '', // Blog title, used in activity markup (in header of each activity)
+    url: '', // Main URL of blog, used for activity stream target
+    feed_url: '', // Feed URL to poll
+    author_url: '' // Author URL prefix for author hyperlinks. E.g. http://www.example.com/author/<authorname>
   }
   
 
