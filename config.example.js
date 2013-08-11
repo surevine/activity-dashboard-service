@@ -28,7 +28,8 @@ module.exports = {
   
   github: {
     username: '', // Account to authenticate Github API with
-    password: ''
+    password: '',
+    organisation: '' // Orgnisation name to poll feed of
   },
   
   blog: {
