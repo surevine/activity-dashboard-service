@@ -66,8 +66,21 @@ TwitterMonitor.prototype.formatActivity = function(activityData) {
 };
 
 TwitterMonitor.prototype.formatActivityContent = function(activityData) {
+
+  // Markup URLs
+  for (var i=0; i<activityData.entities.urls.length; i++) {
+    activityData.text = activityData.text.replace(activityData.entities.urls[i].url, '<a href="'+activityData.entities.urls[i].url+'" target="_blank">'+activityData.entities.urls[i].display_url+'</a>');
+  }
   
-  // TODO markup hashtags, URLs and usernames
+  // Markup Hashtags
+  for (var i=0; i<activityData.entities.hashtags.length; i++) {
+    activityData.text = activityData.text.replace('#'+activityData.entities.hashtags[i].text, '<a href="https://twitter.com/search?q=%23'+activityData.entities.hashtags[i].text+'&src=hash" target="_blank">#'+activityData.entities.hashtags[i].text+'</a>');
+  }
+
+  // Markup User Mentions
+  for (var i=0; i<activityData.entities.user_mentions.length; i++) {
+    activityData.text = activityData.text.replace('@'+activityData.entities.user_mentions[i].screen_name, '<a href="https://twitter.com/'+activityData.entities.user_mentions[i].screen_name+'" target="_blank">@'+activityData.entities.user_mentions[i].screen_name+'</a>');
+  }
   
   var content = '<a href="http://www.twitter.com/'+activityData.user.screen_name+'" target="_blank">'+
             '<img src="'+activityData.user.profile_image_url+'" alt="'+activityData.user.screen_name+'" class="avatar" />'+
