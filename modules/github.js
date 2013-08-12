@@ -41,7 +41,10 @@ GithubMonitor.prototype.init = function() {
     });
     
     github.events.getFromOrg({ org: config.github.organisation }, function(err, events) {
-      if (err) throw err;
+      if (err) {
+        console.log("Github Error: "+err);
+        return; // Don't interupt service
+      } 
       
       for (var i = 0; i < events.length; i++) {
         var githubEvent = events[i];

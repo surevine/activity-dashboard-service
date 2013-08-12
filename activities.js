@@ -19,9 +19,12 @@ module.exports = Activities = {
     };
     
     var query = database.query("INSERT INTO "+config.db.table+" SET ?", databaseEntry, function(err, result) {
-      if (err) throw err;
+      if (err) {
+        console.log("Database Error inserting activity into table: "+err);
+        return;
+      }
     
-      console.log("cached activity "+activity.id);
+      console.log("Cached activity: "+activity.id);
       
     });
   
@@ -36,7 +39,10 @@ module.exports = Activities = {
     }
     
     var query = database.query("SELECT * FROM "+config.db.table+" WHERE activityId = ?", activityId, function(err, result) {
-      if (err) throw err;
+      if (err) {
+        console.log("Database Error querying activity table: "+err);
+        return;
+      }
       
       if(result.length == 0) {
         // Activity not cached, so run callback

@@ -14,7 +14,10 @@ BlogMonitor.prototype.init = function() {
   setInterval(function(){
     
     parser.parseUrl(config.blog.feed_url, function (err, meta, articles) {
-      if (err) throw err;
+      if (err) {
+        console.log("Blog Error: "+err);
+        return; // Don't interupt service
+      } 
       
       if(articles==undefined) {
         return;
