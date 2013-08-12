@@ -12,7 +12,7 @@ module.exports = {
   db: {
     host: '',
     port: '',
-    username: '',
+    user: '',
     password: '',
     database: '',
     table: ''

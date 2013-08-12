@@ -1,9 +1,10 @@
 var mysql = require('mysql');
 
-exports.connection = connection = mysql.createConnection({
-  host     : config.db.host,
-  port     : config.db.port,
-  user     : config.db.username,
-  password : config.db.password,
-  database : config.db.database
+exports.connection = connection = mysql.createConnection( config.db );
+
+connection.on('error', function(err) {
+    console.log('Database Error: '+err);
+    //if(err.code === 'PROTOCOL_CONNECTION_LOST') {
+    //  handleDisconnect();                         
+    //}
 });
