@@ -17,10 +17,13 @@ TwitterMonitor.prototype.init = function() {
   twitter.stream('statuses/filter', { follow: config.twitter.follow }, function(stream) {  
     stream.on('data', function (data) {
       // Handle incoming tweet
-      console.log('Received tweet from stream');
       var activity = self.formatActivity(data);
       activityUtils.broadcast(activity);
       activityUtils.cache(activity, 'twitter');
+    });
+    stream.on('error', function(error){
+      console.log("Twitter Error: "+error);
+      return; // Don't interupt service
     });
     stream.on('end', function (response) {
       // Handle a disconnection      
