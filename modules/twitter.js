@@ -60,7 +60,7 @@ TwitterMonitor.prototype.formatActivity = function(activityData) {
   
   var activity = {
     "id": "twitter-"+activityData.id_str,
-    "content": this.formatActivityContent(activityData),
+    "content": this.formatActivityContentString(activityData),
     "size": "span4",
     "published": new Date(activityData.created_at).toISOString(),
     "generator": { 
@@ -85,7 +85,8 @@ TwitterMonitor.prototype.formatActivity = function(activityData) {
   
 };
 
-TwitterMonitor.prototype.formatActivityContent = function(activityData) {
+// Build HTML string for activity content
+TwitterMonitor.prototype.formatActivityContentString = function(activityData) {
 
   // Markup URLs
   for (var i=0; i<activityData.entities.urls.length; i++) {

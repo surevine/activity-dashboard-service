@@ -89,6 +89,7 @@ BlogMonitor.prototype.formatActivity = function(activity) {
   
 };
 
+// Build HTML string for activity content
 BlogMonitor.prototype.formatActivityContentString = function(activity) {
   
   var content = '<a href="'+activity['link']+'"><h2>'+activity['title']+'</h2></a>'+
@@ -99,4 +100,5 @@ BlogMonitor.prototype.formatActivityContentString = function(activity) {
                 }
   content += '<date class="timeago" title="'+new Date(activity.pubDate).toISOString()+'">'+new Date(activity.pubDate).toISOString()+'</date>';
   return content;
+  
 }

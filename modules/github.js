@@ -29,18 +29,19 @@ GithubMonitor.prototype.init = function() {
   
   var self = this;   
   
+  // API Event types to ignore
   var eventsToIgnore = ['DownloadEvent',
-                      'FollowEvent',
-                      'GollumEvent',
-                      'MemberEvent',
-                      'TeamAddEvent',
-                      'PublicEvent',
-                      'GistEvent',
-                      'CommitCommentEvent',
-                      'ForkApplyEvent',
-                      'IssueCommentEvent', 
-                      'PullRequestReviewComment',
-                      'WatchEvent'];  
+                        'FollowEvent',
+                        'GollumEvent',
+                        'MemberEvent',
+                        'TeamAddEvent',
+                        'PublicEvent',
+                        'GistEvent',
+                        'CommitCommentEvent',
+                        'ForkApplyEvent',
+                        'IssueCommentEvent', 
+                        'PullRequestReviewComment',
+                        'WatchEvent'];  
 
   var github = new GitHubApi({
       // required
@@ -94,7 +95,7 @@ GithubMonitor.prototype.init = function() {
 
 };
 
-// Format activity depending on type
+// Build activity object into expected format
 GithubMonitor.prototype.formatActivity = function(activity) {
   
   var formattedActivity = {
@@ -120,6 +121,7 @@ GithubMonitor.prototype.formatActivity = function(activity) {
     }
   };
   
+  // Format activity content depending on type
   switch(activity.type) {
 
     case "CreateEvent":
