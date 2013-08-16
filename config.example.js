@@ -41,6 +41,7 @@ module.exports = {
   },
   
   twitter: {
+    enabled: true, // enable / disable module
     consumer_key: '',
     consumer_secret: '',
     access_token_key: '',
@@ -49,12 +50,14 @@ module.exports = {
   },
   
   github: {
+    enabled: true, // enable / disable module    
     username: '', // account to authenticate Github API with
     password: '',
     organisation: '' // orgnisation name to poll feed for
   },
   
   blog: {
+    enabled: true, // enable / disable module    
     title: '', // blog title, used in activity markup (in header of each activity)
     url: '', // main URL of blog, used for activity stream target
     feed_url: '', // feed URL to poll
