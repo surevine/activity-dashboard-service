@@ -103,8 +103,13 @@ TwitterMonitor.prototype.formatActivityContentString = function(activityData) {
     activityData.text = activityData.text.replace('@'+activityData.entities.user_mentions[i].screen_name, '<a href="https://twitter.com/'+activityData.entities.user_mentions[i].screen_name+'" target="_blank">@'+activityData.entities.user_mentions[i].screen_name+'</a>');
   }
   
+  var avatarUrl = activityData.user.profile_image_url;
+  if(config.app.secure) {
+    avatarUrl = activityData.user.profile_image_url_https;
+  }
+  
   var content = '<a href="http://www.twitter.com/'+activityData.user.screen_name+'" target="_blank">'+
-            '<img src="'+activityData.user.profile_image_url+'" alt="'+activityData.user.screen_name+'" class="avatar" />'+
+            '<img src="'+avatarUrl+'" alt="'+activityData.user.screen_name+'" class="avatar" />'+
             '</a>'+
             '<p>'+activityData.text+'</p>'+
             '<div class="actions">'+
