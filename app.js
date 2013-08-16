@@ -23,22 +23,26 @@ config = require('./config.'+environment+'.js');
 var https = require('https'),
     http = require('http'),
     fs = require('fs'),
-    express = require('express'),
-    TwitterMonitor = require('./modules/twitter'),
-    GithubMonitor = require('./modules/github'),
-    BlogMonitor = require('./modules/blog');
+    express = require('express');
 
 var app = express();
     
 // Monitors
-var twitterMonitor = new TwitterMonitor();
-twitterMonitor.init();
-
-var githubMonitor = new GithubMonitor();
-githubMonitor.init();
-
-var blogMonitor = new BlogMonitor();
-blogMonitor.init();
+if(config.twitter.enabled) {
+  var TwitterMonitor = require('./modules/twitter');
+  var twitterMonitor = new TwitterMonitor();
+  twitterMonitor.init(); 
+}
+if(config.github.enabled) {
+  var GithubMonitor = require('./modules/github');
+  var githubMonitor = new GithubMonitor();
+  githubMonitor.init();
+}
+if(config.blog.enabled) {
+  var BlogMonitor = require('./modules/blog');
+  var blogMonitor = new BlogMonitor();
+  blogMonitor.init();  
+}
 
 // Start Application
 var server;
