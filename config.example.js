@@ -18,7 +18,12 @@
 module.exports = {
   
   app: {
-    port: 3000 // port to listen on
+    secure: false, // whether application should use https.
+    ssl: {
+      key: '', // path to SSL key (only required if secure = true)
+      cert: '' // path to SSL cert (only required if secure = true)
+    },
+    port: 3000 // port to listen on (should be 443 if secure = true)
   },
   
   polls: {
@@ -40,22 +45,20 @@ module.exports = {
     consumer_secret: '',
     access_token_key: '',
     access_token_secret: '',
-    follow: ''  // User account ID to follow.
+    follow: ''  // user account ID to follow.
   },
   
   github: {
-    username: '', // Account to authenticate Github API with
+    username: '', // account to authenticate Github API with
     password: '',
-    organisation: '' // Orgnisation name to poll feed of
+    organisation: '' // orgnisation name to poll feed for
   },
   
   blog: {
-    title: '', // Blog title, used in activity markup (in header of each activity)
-    url: '', // Main URL of blog, used for activity stream target
-    feed_url: '', // Feed URL to poll
-    author_url: '' // Author URL prefix for author hyperlinks. E.g. http://www.example.com/author/<authorname>
+    title: '', // blog title, used in activity markup (in header of each activity)
+    url: '', // main URL of blog, used for activity stream target
+    feed_url: '', // feed URL to poll
+    author_url: '' // author URL prefix for author hyperlinks. E.g. http://www.example.com/author/<authorname>
   }
-  
-
   
 };
