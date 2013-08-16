@@ -241,6 +241,11 @@ GithubMonitor.prototype.formatPullRequestActivity = function(activity) {
                 '<img src="'+activity.actor.avatar_url+'" alt="'+activity.actor.login+'" class="avatar" />'+
                 '</a>'+
                 '<p><a href="https://www.github.com/'+activity.actor.login+'">'+activity.actor.login+'</a> '+activity.payload.action+' pull request <a href="'+activity.payload.pull_request.html_url+'">'+sanitize(activity.payload.pull_request.title).entityEncode()+'</a> in <a href="https://www.github.com/'+activity.repo.name+'">'+activity.repo.name+'</a>.</p>'+
+                '<p class="details">'+
+                '<span class="commits">'+activity.payload.pull_request.commits+' commits</span>'+
+                '<span class="additions">'+activity.payload.pull_request.additions+' ++</span>'+
+                '<span class="deletions">'+activity.payload.pull_request.deletions+' --</span>'+
+                '</p>'+
                 '<date class="timeago" title="'+new Date(activity.created_at).toISOString()+'">'+new Date(activity.created_at).toISOString()+'</date>';
   return content;
 };
