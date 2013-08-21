@@ -62,6 +62,10 @@ module.exports = {
     url: '', // main URL of blog, used for activity stream target
     feed_url: '', // feed URL to poll
     author_url: '' // author URL prefix for author hyperlinks. E.g. http://www.example.com/author/<authorname>
+  },
+  
+  foursquare: {
+    enabled: true // enable / disable module
   }
   
 };
