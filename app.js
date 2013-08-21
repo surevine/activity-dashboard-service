@@ -26,6 +26,7 @@ var https = require('https'),
     express = require('express');
 
 var app = express();
+app.use(express.bodyParser());
     
 // Monitors
 if(config.twitter.enabled) {
@@ -42,6 +43,10 @@ if(config.blog.enabled) {
   var BlogMonitor = require('./modules/blog');
   var blogMonitor = new BlogMonitor();
   blogMonitor.init();  
+}
+if(config.foursquare.enabled) {
+  var FoursquareMonitor = require('./modules/foursquare');
+  app.post('/checkin', FoursquareMonitor.checkin);
 }
 
 // Start Application
