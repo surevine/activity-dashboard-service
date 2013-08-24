@@ -47,7 +47,7 @@ module.exports = FoursquareMonitor = {
       "id": "foursquare-"+checkin.id,
       "content": this.formatActivityContentString(checkin),
       "size": "span4",
-      "published": checkin.createdAt,
+      "published": new Date(checkin.createdAt * 1000).toISOString(),
       "generator": {
           "id": "foursquare",
           "displayName": "Foursquare"
@@ -83,7 +83,7 @@ module.exports = FoursquareMonitor = {
                   ' checked in to '+
                   '<a href="https://www.foursquare.com/v/'+checkinVenue.id+'" target="_blank">'+checkinVenue.name+'</a>.'+
                   '</p>';
-    content +=    '<date class="timeago" title="'+new Date(checkin.createdAt).toISOString()+'">'+new Date(checkin.createdAt).toISOString()+'</date>';
+    content +=    '<date class="timeago" title="'+new Date(checkin.createdAt * 1000).toISOString()+'">'+new Date(checkin.createdAt * 1000).toISOString()+'</date>';
     return content;
 
   }
