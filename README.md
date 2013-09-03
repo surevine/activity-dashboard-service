@@ -14,3 +14,7 @@ Copy `config.example.js` to `config.<ENVIRONMENT>.js`. Edit settings as required
 ## Usage
 
 // TODO
+
+## Demo
+
+A deployment can be viewed at https://www.surevine.com/technical-dashboard/
