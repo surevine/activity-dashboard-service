@@ -1,7 +1,7 @@
 activity-dashboard-service
 ==========================
 
-Node.js web service to provide realtime data for wordpress activity dashboard plugin.
+Node.js web service to provide realtime data for [surevine/activity-dashboard-plugin](https://github.com/surevine/activity-dashboard-plugin).
 
 ## Configuration
 
