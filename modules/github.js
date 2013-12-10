@@ -41,7 +41,8 @@ GithubMonitor.prototype.init = function() {
                         'ForkApplyEvent',
                         'IssueCommentEvent', 
                         'PullRequestReviewComment',
-                        'WatchEvent'];  
+                        'WatchEvent',
+                        'ReleaseEvent']
 
   var github = new GitHubApi({
       // required
