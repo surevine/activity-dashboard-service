@@ -42,7 +42,7 @@ GithubMonitor.prototype.init = function() {
                         'IssueCommentEvent', 
                         'PullRequestReviewComment',
                         'WatchEvent',
-                        'ReleaseEvent']
+                        'ReleaseEvent'];
 
   var github = new GitHubApi({
       // required
