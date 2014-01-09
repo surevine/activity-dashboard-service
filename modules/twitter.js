@@ -36,8 +36,7 @@ TwitterMonitor.prototype.init = function() {
         
       if(config.twitter.show_original_tweets_only) {
           if(!self.isOriginalTweet(data)) {
-              // do nothing if tweet does not originate from an account we are following
-              console.log("ignoring as not original tweet");
+            // do nothing if tweet does not originate from an account we are following
             return;
           }
       }
