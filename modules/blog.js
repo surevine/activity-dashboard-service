@@ -92,8 +92,7 @@ BlogMonitor.prototype.formatActivity = function(activity) {
 // Build HTML string for activity content
 BlogMonitor.prototype.formatActivityContentString = function(activity) {
   
-  var content = '<a href="'+activity['link']+'"><h2>'+activity['title']+'</h2></a>'+
-                '<a href="'+config.blog.author_url+activity.author+'">'+activity['author']+'</a>';
+  var content = '<a href="'+activity['link']+'"><h2>'+activity['title']+'</h2></a>';
                 if(activity['rss:description']['#'] != undefined) {
                   content += '<p>'+activity['rss:description']['#']+'</p>'+
                              '<a href="'+activity['link']+'">Read More</a>';
