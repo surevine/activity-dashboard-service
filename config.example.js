@@ -46,7 +46,8 @@ module.exports = {
     consumer_secret: '',
     access_token_key: '',
     access_token_secret: '',
-    follow: ''  // user account ID to follow.
+    follow: '',  // user account ID to follow. if multiple accounts are required, separate with commas (no spaces)
+    show_original_tweets_only: true // whether to only include tweets originating from the users we follow (ignore retweets, replies & mentions)
   },
   
   github: {

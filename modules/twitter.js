@@ -33,10 +33,20 @@ TwitterMonitor.prototype.init = function() {
   // Listen for tweets
   twitter.stream('statuses/filter', { follow: config.twitter.follow }, function(stream) {  
     stream.on('data', function (data) {
+        
+      if(config.twitter.show_original_tweets_only) {
+          if(!self.isOriginalTweet(data)) {
+              // do nothing if tweet does not originate from an account we are following
+              console.log("ignoring as not original tweet");
+            return;
+          }
+      }
+        
       // Handle incoming tweet
       var activity = self.formatActivity(data);
       activityUtils.broadcast(activity);
       activityUtils.cache(activity, 'twitter');
+      
     });
     stream.on('error', function(error){
       console.log("Twitter Error: "+error);
@@ -121,4 +131,15 @@ TwitterMonitor.prototype.formatActivityContentString = function(activityData) {
             
   return content;
   
+}
+
+// Establish whether tweet originates from an account we are following (or whether it is a retweet/mention)
+TwitterMonitor.prototype.isOriginalTweet = function(tweet) {
+    var accounts = config.twitter.follow.split(",");
+    for (var i = 0; i < accounts.length; i++) {
+      if(tweet.user.id == accounts[i].trim()) {
+        return true;
+      }
+  }
+  return false;
 }
