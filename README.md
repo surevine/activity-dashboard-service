@@ -9,11 +9,22 @@ Copy `config.example.js` to `config.<ENVIRONMENT>.js`. Edit settings as required
 
 ## Installation
 
-// TODO
+Install dependencies:
+`npm install .`
 
 ## Usage
 
-// TODO
+To start the service:
+`node app.js`
+
+To start the service with forever:
+`npm start`
+
+To stop a process started with forever:
+`npm stop`
+
+To restart a process started with forever:
+`npm restart`
 
 ## Demo
 
