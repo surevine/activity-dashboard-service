@@ -3,16 +3,30 @@
   "description": "Service for surevine.com realtime dashboard",
   "version": "0.1.0",
   "private": true,
+  "main": "app.js",
   "dependencies": {
-    "express": "3.2.4",
-    "mysql": "2.0.0-alpha8",
+    "express": "3.4.8",
+    "mysql": "2.0.0",
     "socket.io": "0.9.16",
     "ntwitter": "0.5.0",
-    "github": "0.1.10",
+    "github": "0.1.12",
     "feedparser": "0.15.3",
-    "validator": "1.4.0"
+    "validator": "3.1.0",
+    "oauth": "0.9.11",
+    "forever": "0.10.11",
+    "request": "2.33.0"
   },
   "scripts": {
-    "start": "app.js"
+    "start": "forever start app.js",
+    "stop": "forever stop app.js",
+    "restart": "forever restart app.js"
+  },
+  "engines": {
+    "node": ">=0.10.x"
+  },
+  "author": "Jonny Heavey <jonny.heavey@surevine.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/surevine/activity-dashboard-service"
   }
 }

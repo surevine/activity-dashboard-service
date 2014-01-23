@@ -19,7 +19,8 @@
 
 var database = require('../database').connection,
     activityUtils = require('../activities'),
-    parser = require('feedparser');
+    FeedParser = require('feedparser'),
+    request = require('request');
 
 module.exports = BlogMonitor = function BlogMonitor(){};
 
@@ -30,30 +31,23 @@ BlogMonitor.prototype.init = function() {
   
   setInterval(function(){
     
-    parser.parseUrl(config.blog.feed_url, function (err, meta, articles) {
-      if (err) {
+    request(config.blog.feed_url)
+      .pipe(new FeedParser())
+      .on('error', function(error) {
         console.log("Blog Error: "+err);
-        return; // Don't interupt service
-      } 
-      
-      if(articles==undefined) {
-        return;
-      }
-      
-      for (var i=0;i<articles.length;i++) {
+      })
+      .on('article', function(article) {
         
         // Produce uid for activity
-        var activityId = "blog-"+articles[i].guid;
+        var activityId = "blog-"+article.guid;
         
-        activityUtils.ifActivityNotCached(activityId, articles[i], function(activity) {
+        activityUtils.ifActivityNotCached(activityId, article, function(activity) {
           var formattedActivity = self.formatActivity(activity);
           activityUtils.broadcast(formattedActivity);
           activityUtils.cache(formattedActivity, "blog");
         });
-
-      }
-      
-    });
+        
+      });
     
   }, config.polls.blog);
   

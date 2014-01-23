@@ -20,7 +20,7 @@
 var database = require('../database').connection,
     activityUtils = require('../activities'),
     GitHubApi = require('github'),
-    sanitize = require('validator').sanitize;
+    validator = require('validator');
 
 module.exports = GithubMonitor = function GithubMonitor(){};
 
@@ -177,21 +177,21 @@ GithubMonitor.prototype.formatCreateActivity = function(activity) {
       var content = '<a href="https://www.github.com/'+activity.actor.login+'" target="_blank">'+
                 '<img src="'+activity.actor.avatar_url+'" alt="'+activity.actor.login+'" class="avatar" />'+
                 '</a>'+
-                '<p><a href="https://www.github.com/'+activity.actor.login+'" target="_blank">'+activity.actor.login+'</a> created '+activity.payload.ref_type+' <a href="https://www.github.com/'+activity.repo.name+'/tree/'+activity.payload.ref+'" target="_blank">'+sanitize(activity.payload.ref).entityEncode()+'</a> in <a href="https://www.github.com/'+activity.repo.name+'" target="_blank">'+activity.repo.name+'</a>.</p>'+
+                '<p><a href="https://www.github.com/'+activity.actor.login+'" target="_blank">'+activity.actor.login+'</a> created '+activity.payload.ref_type+' <a href="https://www.github.com/'+activity.repo.name+'/tree/'+activity.payload.ref+'" target="_blank">'+validator.escape(activity.payload.ref)+'</a> in <a href="https://www.github.com/'+activity.repo.name+'" target="_blank">'+activity.repo.name+'</a>.</p>'+
                 '<date class="timeago" title="'+new Date(activity.created_at).toISOString()+'">'+new Date(activity.created_at).toISOString()+'</date>';
     break; 
     case "tag":
         var content = '<a href="https://www.github.com/'+activity.actor.login+'" target="_blank">'+
                 '<img src="'+activity.actor.avatar_url+'" alt="'+activity.actor.login+'" class="avatar" />'+
                 '</a>'+
-                '<p><a href="https://www.github.com/'+activity.actor.login+'" target="_blank">'+activity.actor.login+'</a> created '+activity.payload.ref_type+' <a href="https://www.github.com/'+activity.repo.name+'/releases/'+activity.payload.ref+'" target="_blank">'+sanitize(activity.payload.ref).entityEncode()+'</a> in <a href="https://www.github.com/'+activity.repo.name+'" target="_blank">'+activity.repo.name+'</a>.</p>'+
+                '<p><a href="https://www.github.com/'+activity.actor.login+'" target="_blank">'+activity.actor.login+'</a> created '+activity.payload.ref_type+' <a href="https://www.github.com/'+activity.repo.name+'/releases/'+activity.payload.ref+'" target="_blank">'+validator.escape(activity.payload.ref)+'</a> in <a href="https://www.github.com/'+activity.repo.name+'" target="_blank">'+activity.repo.name+'</a>.</p>'+
                 '<date class="timeago" title="'+new Date(activity.created_at).toISOString()+'">'+new Date(activity.created_at).toISOString()+'</date>';
     break; 
     default:
       var content = '<a href="https://www.github.com/'+activity.actor.login+'" target="_blank">'+
                 '<img src="'+activity.actor.avatar_url+'" alt="'+activity.actor.login+'" class="avatar" />'+
                 '</a>'+
-                '<p><a href="https://www.github.com/'+activity.actor.login+'" target="_blank">'+activity.actor.login+'</a> created '+activity.payload.ref_type+' '+sanitize(activity.payload.ref).entityEncode()+' in <a href="https://www.github.com/'+activity.repo.name+'" target="_blank">'+activity.repo.name+'</a>.</p>'+
+                '<p><a href="https://www.github.com/'+activity.actor.login+'" target="_blank">'+activity.actor.login+'</a> created '+activity.payload.ref_type+' '+validator.escape(activity.payload.ref)+' in <a href="https://www.github.com/'+activity.repo.name+'" target="_blank">'+activity.repo.name+'</a>.</p>'+
                 '<date class="timeago" title="'+new Date(activity.created_at).toISOString()+'">'+new Date(activity.created_at).toISOString()+'</date>';
     break;
   }
@@ -202,7 +202,7 @@ GithubMonitor.prototype.formatDeleteActivity = function(activity) {
   var content = '<a href="https://www.github.com/'+activity.actor.login+'" target="_blank">'+
                 '<img src="'+activity.actor.avatar_url+'" alt="'+activity.actor.login+'" class="avatar" />'+
                 '</a>'+
-                '<p><a href="https://www.github.com/'+activity.actor.login+'" target="_blank">'+activity.actor.login+'</a> deleted '+activity.payload.ref_type+' '+sanitize(activity.payload.ref).entityEncode()+' from <a href="https://www.github.com/'+activity.repo.name+'" target="_blank">'+activity.repo.name+'</a>.</p>'+
+                '<p><a href="https://www.github.com/'+activity.actor.login+'" target="_blank">'+activity.actor.login+'</a> deleted '+activity.payload.ref_type+' '+validator.escape(activity.payload.ref)+' from <a href="https://www.github.com/'+activity.repo.name+'" target="_blank">'+activity.repo.name+'</a>.</p>'+
                 '<date class="timeago" title="'+new Date(activity.created_at).toISOString()+'">'+new Date(activity.created_at).toISOString()+'</date>';
   return content;
 };
@@ -232,7 +232,7 @@ GithubMonitor.prototype.formatIssueActivity = function(activity) {
   var content = '<a href="https://www.github.com/'+activity.actor.login+'" target="_blank">'+
                 '<img src="'+activity.actor.avatar_url+'" alt="'+activity.actor.login+'" class="avatar" />'+
                 '</a>'+
-                '<p><a href="https://www.github.com/'+activity.actor.login+'" target="_blank">'+activity.actor.login+'</a> '+activity.payload.action+' issue <a href="'+activity.payload.issue.html_url+'" target="_blank">#'+activity.payload.issue.number+' - '+sanitize(activity.payload.issue.title).entityEncode()+'</a> in <a href="https://www.github.com/'+activity.repo.name+'" target="_blank">'+activity.repo.name+'</a>.</p>'+
+                '<p><a href="https://www.github.com/'+activity.actor.login+'" target="_blank">'+activity.actor.login+'</a> '+activity.payload.action+' issue <a href="'+activity.payload.issue.html_url+'" target="_blank">#'+activity.payload.issue.number+' - '+validator.escape(activity.payload.issue.title)+'</a> in <a href="https://www.github.com/'+activity.repo.name+'" target="_blank">'+activity.repo.name+'</a>.</p>'+
                 '<date class="timeago" title="'+new Date(activity.created_at).toISOString()+'">'+new Date(activity.created_at).toISOString()+'</date>';
   return content; 
 };
@@ -241,7 +241,7 @@ GithubMonitor.prototype.formatPullRequestActivity = function(activity) {
   var content = '<a href="https://www.github.com/'+activity.actor.login+'" target="_blank">'+
                 '<img src="'+activity.actor.avatar_url+'" alt="'+activity.actor.login+'" class="avatar" />'+
                 '</a>'+
-                '<p><a href="https://www.github.com/'+activity.actor.login+'" target="_blank">'+activity.actor.login+'</a> '+activity.payload.action+' pull request <a href="'+activity.payload.pull_request.html_url+'" target="_blank">'+sanitize(activity.payload.pull_request.title).entityEncode()+'</a> in <a href="https://www.github.com/'+activity.repo.name+'" target="_blank">'+activity.repo.name+'</a>.</p>'+
+                '<p><a href="https://www.github.com/'+activity.actor.login+'" target="_blank">'+activity.actor.login+'</a> '+activity.payload.action+' pull request <a href="'+activity.payload.pull_request.html_url+'" target="_blank">'+validator.escape(activity.payload.pull_request.title)+'</a> in <a href="https://www.github.com/'+activity.repo.name+'" target="_blank">'+activity.repo.name+'</a>.</p>'+
                 '<p class="details">'+
                 '<span class="commits">'+activity.payload.pull_request.commits+' commits</span>'+
                 '<span class="additions">'+activity.payload.pull_request.additions+'++</span>'+
