@@ -23,7 +23,7 @@ sudo npm i -g forever
 
 ## Configuration
 
-Copy `config.example.js` to `config.<ENVIRONMENT>.js`, where '<ENVIRONMENT>' equals the NODE_ENV environment variable (usually 'production' or 'development').
+Copy `config.example.js` to `config.<ENVIRONMENT>.js`, where `<ENVIRONMENT>` equals the NODE_ENV environment variable (usually 'production' or 'development'). e.g. `config.development.js`.
 
 Edit settings as required (documented in config file).
 
