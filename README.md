@@ -25,6 +25,16 @@ sudo npm i -g forever
 
 Copy `config.example.js` to `config.<ENVIRONMENT>.js`, where `<ENVIRONMENT>` equals the NODE_ENV environment variable (usually 'production' or 'development'). e.g. `config.development.js`.
 
+In order to check the value of your environment's NODE_ENV variable, execute the following command:
+```bash
+echo $NODE_ENV
+```
+
+If the response is blank, you can set the variable as follows (swapping development/production as appropriate):
+```bash
+export NODE_ENV=development
+```
+
 Edit settings as required (documented in config file).
 
 ## Usage
