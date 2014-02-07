@@ -6,17 +6,26 @@ Node.js web service to provide realtime data for [surevine/activity-dashboard-pl
 ## Requirements
 
 * Nodejs v0.10.x
-
-## Configuration
-
-Copy `config.example.js` to `config.<ENVIRONMENT>.js`. Edit settings as required.
+* npm
 
 ## Installation
 
 Install dependencies:
 ```bash
+cd /path/to/project/directory
 npm install .
 ```
+
+If you wish to use the npm start/stop scripts, install the `forever` package:
+```bash
+sudo npm i -g forever
+```
+
+## Configuration
+
+Copy `config.example.js` to `config.<ENVIRONMENT>.js`, where '<ENVIRONMENT>' equals the NODE_ENV environment variable (usually 'production' or 'development').
+
+Edit settings as required (documented in config file).
 
 ## Usage
 
