@@ -24,16 +24,28 @@ module.exports = FoursquareMonitor = {
   
   // Setup activity monitor
   checkin: function(req, res) {
-
-    var checkin = JSON.parse(req.body.checkin);
     
-    // Produce unique id for activity
-    var activityId = "foursquare-"+checkin.id;
-    
-    var formattedActivity = FoursquareMonitor.formatActivity(checkin);
-    activityUtils.broadcast(formattedActivity);
-    activityUtils.cache(formattedActivity, "foursquare");
+    try {
 
+      var checkin = JSON.parse(req.body.checkin);
+      
+      // Produce unique id for activity
+      var activityId = "foursquare-"+checkin.id;
+      
+      var formattedActivity = FoursquareMonitor.formatActivity(checkin);
+      activityUtils.broadcast(formattedActivity);
+      activityUtils.cache(formattedActivity, "foursquare");
+
+    }
+    catch(err) {
+      
+      console.log("Foursquare Checkin Error: " + err);
+      
+      // always return success back to foursquare api
+      res.send(200); 
+      
+    }
+      
     res.send(200);
 
   },
