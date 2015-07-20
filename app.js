@@ -55,7 +55,7 @@ if(config.app.secure) {
   var sslOptions = {
     key: fs.readFileSync( config.app.ssl.key ),
     cert: fs.readFileSync( config.app.ssl.cert ),
-    ciphers: 'ECDHE-RSA-AES128-SHA256:AES128-GCM-SHA256:RC4:HIGH:!MD5:!aNULL:!EDH',
+    ciphers: 'ECDHE-RSA-AES128-SHA256:AES128-GCM-SHA256:!RC4:HIGH:!MD5:!aNULL:!EDH',
     honorCipherOrder: true
   };
   server =  https.createServer(sslOptions, app); 
